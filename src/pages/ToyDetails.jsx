@@ -1,7 +1,7 @@
 // const { useEffect, useState } = React
 // const { useParams, useNavigate, Link } = ReactRouterDOM
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { toyService } from "../services/toy.service.js"
 import { showErrorMsg } from "../services/event-bus.service.js"
 import { useNavigate, useParams } from "react-router-dom"
