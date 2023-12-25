@@ -41,10 +41,11 @@ function query(filterBy = {}) {
 }
 
 function getById(toyId) {
+    //XXX return httpService.get(BASE_URL + toyId)
+
     ////new-start///
     return storageService.get(TOY_KEY, toyId)
     ////new-end///
-    //XXX return httpService.get(BASE_URL + toyId)
 }
 
 function remove(toyId) {
@@ -65,7 +66,7 @@ function save(toy) {
     //XXX
 
     ////new-start///
-    if (toy.id) {
+    if (toy._id) {
         return storageService.put(TOY_KEY, toy)
     } else {
         return storageService.post(TOY_KEY, toy)
@@ -102,7 +103,7 @@ function _createToys() {
 
 function _createToy(vendor, maxSpeed = 250) {
     const toy = getEmptyToy(vendor, maxSpeed)
-    toy.id = utilService.makeId()
+    toy._id = utilService.makeId()
     return toy
 }
 ////new-end///
