@@ -3,6 +3,9 @@
 import { useEffect, useState } from 'react'
 import { utilService } from '../services/util.service.js'
 import { useEffectUpdate } from './customHooks/useEffectUpdate.js'
+import { toyService } from '../services/toy.service'
+
+const toyLabel = toyService.getLabels()
 
 export function ToyFilter({ filterBy, onSetFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
@@ -12,41 +15,20 @@ export function ToyFilter({ filterBy, onSetFilter }) {
     }, [filterByToEdit])
 
     function handleChange({ target }) {
-        let { value, name: field, type } = target
-        value = type === 'number' ? +value : value
-
-        setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
+        let { value, type, name: field } = target
+        if (type === 'checkbox') value = target.checked
+        if (type === 'select-multiple')
+            value = Array.from(target.selectedOptions, (option) => option.value)
+        setFilterByToEdit((prevFilterBy) => ({
+            ...prevFilterBy,
+            [field]: value,
+        }))
     }
 
     return (
         <section className="toy-filter full main-layout">
             <h2>Toys Filter</h2>
             <form>
-                <label htmlFor="sortBy">Sort By:</label>
-                <select
-                    name="sortBy"
-                    id="sortBy"
-                    onChange={handleChange}
-                    defaultValue={filterByToEdit.sortBy || ''}
-                >
-                    <option disabled value="">
-                        Choose option
-                    </option>
-                    <option value="name">Name</option>
-                    <option value="price">Price</option>
-                    <option value="createdAt">Created At</option>
-                </select>
-
-                <label htmlFor="sortDir">Ascending </label>
-                <input
-                    disabled={!filterByToEdit.sortBy}
-                    checked={filterBy.sortDir === 'on'}
-                    onChange={handleChange}
-                    type="checkbox"
-                    id="sortDir"
-                    name="sortDir"
-                />
-
                 <label htmlFor="name">Name:</label>
                 <input
                     type="text"
@@ -99,24 +81,24 @@ export function ToyFilter({ filterBy, onSetFilter }) {
                         <label htmlFor="inStock">Out of stock</label>
                     </div>
                 </fieldset>
-                <label htmlFor="labels">Choose a category:</label>
-                <input
-                    list="labels-choice"
-                    id="labels"
-                    name="labels"
-                    onChange={handleChange}
-                />
-                <datalist id="labels-choice">
-                    <option value="All"></option>
-                    <option value="On wheels"></option>
-                    <option value="Box game"></option>
-                    <option value="Art"></option>
-                    <option value="Baby"></option>
-                    <option value="Doll"></option>
-                    <option value="Puzzle"></option>
-                    <option value="Outdoor"></option>
-                    <option value="Battery Powered"></option>
-                </datalist>
+                <label className="filter-label">
+                    <span className="filter-label">Filter By</span>
+                    <select
+                        onChange={handleChange}
+                        name="labels"
+                        multiple
+                        value={filterByToEdit.labels || []}
+                    >
+                        <option value=""> All </option>
+                        <>
+                            {toyLabel.map((label) => (
+                                <option key={label} value={label}>
+                                    {label}
+                                </option>
+                            ))}
+                        </>
+                    </select>
+                </label>
             </form>
         </section>
     )

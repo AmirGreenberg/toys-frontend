@@ -22,12 +22,18 @@ export const toyService = {
     save,
     remove,
     getEmptyToy,
-    getDefaultFilter
+    getDefaultFilter,
+    getDefaultSort,
+    getLabels
 }
 
-function query(filterBy = {}) {
+function getLabels() {
+    return [...labels]
+}
+
+function query(filterBy = {}, sort) {
     //XXX 
-    return httpService.get(BASE_URL, filterBy)
+    return httpService.get(BASE_URL, { params: { filterBy, sort } })
 
     ////new-start///
 
@@ -118,7 +124,15 @@ function getEmptyToy() {
 }
 
 function getDefaultFilter() {
-    return { name: '', price: '', labels: '', createdAt: '', inStock: '', sortBy: '', sortDir: '' }
+    return { name: '', price: '', labels: '', createdAt: '', inStock: '' }
+}
+
+function getDefaultSort() {
+    return {
+        // 
+        by: 'name',
+        asc: true
+    }
 }
 
 ////new-start///

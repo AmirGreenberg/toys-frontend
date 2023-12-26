@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 // const { Link } = ReactRouterDOM
 export function ToyPreview({ toy, onRemoveToy, onEditToy, addToCart }) {
@@ -36,14 +37,7 @@ export function ToyPreview({ toy, onRemoveToy, onEditToy, addToCart }) {
                         onRemoveToy(toy._id)
                     }}
                 >
-                    x
-                </button>
-                <button
-                    onClick={() => {
-                        onEditToy(toy)
-                    }}
-                >
-                    Edit
+                    Remove
                 </button>
             </div>
             <button
@@ -54,9 +48,15 @@ export function ToyPreview({ toy, onRemoveToy, onEditToy, addToCart }) {
             >
                 Add to Cart
             </button>
-            <Link to={`/toy/${toy._id}`}>
-                <button className="details">Details</button>
-            </Link>
+            <section className="toy-prev-btns">
+                <NavLink to={`/toy/edit/${toy._id}`}>
+                    {' '}
+                    <button> Edit </button>{' '}
+                </NavLink>
+                <NavLink to={`/toy/${toy._id}`}>
+                    <button> Details </button>
+                </NavLink>
+            </section>
         </li>
     )
 }

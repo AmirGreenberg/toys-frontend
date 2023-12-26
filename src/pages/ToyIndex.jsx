@@ -1,10 +1,11 @@
 // const { useState, useEffect } = React
-// const { useSelector, useDispatch } = ReactRedux
 
-import { utilService } from '../services/util.service.js'
 import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState, useRef } from 'react'
+import { utilService } from '../services/util.service.js'
 import { ToyFilter } from '../cmps/ToyFilter.jsx'
 import { ToyList } from '../cmps/ToyList.jsx'
+import { ToySort } from '../cmps/ToySort'
 import { toyService } from '../services/toy.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import {
@@ -14,23 +15,23 @@ import {
     setFilterBy,
 } from '../store/actions/toy.actions.js'
 import { ADD_TOY_TO_CART } from '../store/reducers/toy.reducer.js'
-import { useEffect, useRef } from 'react'
 
 export function ToyIndex() {
-    const dispatch = useDispatch()
     const toys = useSelector((storeState) => storeState.toyModule.toys)
-    const cart = useSelector((storeState) => storeState.toyModule.shoppingCart)
+    const [filterBy, setFilterBy] = useState(toyService.getDefaultFilter())
+    const [sort, setSort] = useState(toyService.getDefaultSort())
+    const dispatch = useDispatch()
+
     const isLoading = useSelector(
         (storeState) => storeState.toyModule.isLoading
     )
-    const filterBy = useSelector((storeState) => storeState.toyModule.filterBy)
     const debounceOnSetFilter = useRef(utilService.debounce(onSetFilter, 500))
 
     useEffect(() => {
-        loadToys().catch(() => {
+        loadToys(filterBy, sort).catch(() => {
             showErrorMsg('Cannot show toys')
         })
-    }, [filterBy])
+    }, [filterBy, sort])
 
     function onRemoveToy(toyId) {
         removeToyOptimistic(toyId)
@@ -79,6 +80,10 @@ export function ToyIndex() {
         setFilterBy(filterBy)
     }
 
+    function onSetSort(sort) {
+        setSort(sort)
+    }
+
     function addToCart(toy) {
         console.log('toy:', toy)
         console.log(`Adding ${toy.name} to Cart`)
@@ -95,6 +100,7 @@ export function ToyIndex() {
                     filterBy={filterBy}
                     onSetFilter={debounceOnSetFilter}
                 />
+                <ToySort sort={sort} onSetSort={onSetSort} />
                 {!isLoading && (
                     <ToyList
                         toys={toys}

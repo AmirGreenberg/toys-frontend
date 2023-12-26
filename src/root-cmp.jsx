@@ -11,12 +11,11 @@ import { AppFooter } from './cmps/AppFooter'
 import { HomePage } from './pages/HomePage'
 import { AboutUs } from './pages/AboutUs'
 import { ToyIndex } from './pages/ToyIndex.jsx'
+import { ToyEdit } from './pages/ToyEdit.jsx'
 import { store } from './store/store'
 import { ToyDetails } from './pages/ToyDetails.jsx'
 
-
 export function App() {
-
     return (
         <Provider store={store}>
             <Router>
@@ -26,8 +25,15 @@ export function App() {
                         <Routes>
                             <Route element={<HomePage />} path="/" />
                             <Route element={<AboutUs />} path="/about" />
-                            <Route element={<ToyDetails />} path="/toy/:toyId" />
+                            <Route
+                                element={<ToyDetails />}
+                                path="/toy/:toyId"
+                            />
                             <Route element={<ToyIndex />} path="/toy" />
+                            <Route
+                                element={<ToyEdit />}
+                                path="/toy/edit/:toyId?"
+                            />
                         </Routes>
                     </main>
                     <AppFooter />
@@ -36,5 +42,3 @@ export function App() {
         </Provider>
     )
 }
-
-
