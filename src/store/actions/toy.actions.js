@@ -19,6 +19,7 @@ export function loadToys() {
         })
 }
 
+
 export function removeToyOptimistic(toyId) {
     store.dispatch({ type: REMOVE_TOY, toyId })
     store.dispatch({ type: SET_IS_LOADING, isLoading: true })

@@ -1,28 +1,62 @@
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom'
 
 // const { Link } = ReactRouterDOM
 export function ToyPreview({ toy, onRemoveToy, onEditToy, addToCart }) {
-
     return (
         <li className="toy-preview" key={toy._id}>
-            <Link to={`/toy/${toy._id}`} >
-                <h4>{toy.vendor}</h4>
-                <h1>⛐</h1>
+            <Link to={`/toy/${toy._id}`}>
+                {toy.name && <h4>{toy.name}</h4>}
+                <h1>🧸</h1>
             </Link>
-            <p>Price: <span>${toy.price.toLocaleString()}</span></p>
-            <p>Owner: <span>{toy.owner && toy.owner.fullname}</span></p>
+            {toy.price && (
+                <p>
+                    Price: <span>${toy.price.toLocaleString()}</span>
+                </p>
+            )}
+            {toy.labels && (
+                <p>
+                    Labels: <span>{toy.labels.join(', ')}</span>
+                </p>
+            )}
+            {toy.createdAt && (
+                <p>
+                    Created at:{' '}
+                    <span>
+                        {new Date(toy.createdAt).toString().substring(0, 25)}
+                    </span>
+                </p>
+            )}
+            <p>
+                Inventory:{' '}
+                <span>{toy.inStock ? 'In stock' : 'Out of stock'}</span>
+            </p>
             <div>
-                <button onClick={() => {
-                    onRemoveToy(toy._id)
-                }}>x</button>
-                <button onClick={() => {
-                    onEditToy(toy)
-                }}>Edit</button>
+                <button
+                    onClick={() => {
+                        onRemoveToy(toy._id)
+                    }}
+                >
+                    x
+                </button>
+                <button
+                    onClick={() => {
+                        onEditToy(toy)
+                    }}
+                >
+                    Edit
+                </button>
             </div>
-            <button className="buy" onClick={() => {
-                addToCart(toy)
-            }}>Add to Cart</button>
-
+            <button
+                className="buy"
+                onClick={() => {
+                    addToCart(toy)
+                }}
+            >
+                Add to Cart
+            </button>
+            <Link to={`/toy/${toy._id}`}>
+                <button className="details">Details</button>
+            </Link>
         </li>
     )
 }

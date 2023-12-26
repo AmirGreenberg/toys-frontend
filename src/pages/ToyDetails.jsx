@@ -1,12 +1,12 @@
 // const { useEffect, useState } = React
 // const { useParams, useNavigate, Link } = ReactRouterDOM
 
-import { useState, useEffect } from "react"
-import { toyService } from "../services/toy.service.js"
-import { showErrorMsg } from "../services/event-bus.service.js"
-import { useNavigate, useParams } from "react-router-dom"
+import { useState, useEffect } from 'react'
+import { toyService } from '../services/toy.service.js'
+import { showErrorMsg } from '../services/event-bus.service.js'
+import { useNavigate, useParams } from 'react-router-dom'
 
-export function ToyDetails() {
+export function ToyDetails(addToCart) {
     const [toy, setToy] = useState(null)
     const { toyId } = useParams()
     const navigate = useNavigate()
@@ -16,8 +16,12 @@ export function ToyDetails() {
     }, [toyId])
 
     function loadToy() {
-        toyService.getById(toyId)
-            .then((toy) => setToy(toy))
+        toyService
+            .getById(toyId)
+            .then((toy) => {
+                return setToy(toy)
+            })
+
             .catch((err) => {
                 console.log('Had issues in toy details', err)
                 showErrorMsg('Cannot load toy')
@@ -28,11 +32,28 @@ export function ToyDetails() {
     if (!toy) return <div>Loading...</div>
     return (
         <section className="toy-details">
-            <h1>Toy vendor : {toy.vendor}</h1>
+            <h1>Toy name : {toy.name}</h1>
             <h5>Price: ${toy.price}</h5>
-            <h5>Speed: {toy.speed} km/h</h5>
-            <p>⛐</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi voluptas cumque tempore, aperiam sed dolorum rem! Nemo quidem, placeat perferendis tempora aspernatur sit, explicabo veritatis corrupti perspiciatis repellat, enim quibusdam!</p>
+            <h5>Categories: {toy.labels.join(', ')}</h5>
+            {toy.createdAt && (
+                <p>
+                    Created at:{' '}
+                    <span>
+                        {new Date(toy.createdAt).toString().substring(0, 25)}
+                    </span>
+                </p>
+            )}
+            <p>
+                Inventory:{' '}
+                <span>{toy.inStock ? 'In stock' : 'Out of stock'}</span>
+            </p>
+            <p>🧸</p>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi
+                voluptas cumque tempore, aperiam sed dolorum rem! Nemo quidem,
+                placeat perferendis tempora aspernatur sit, explicabo veritatis
+                corrupti perspiciatis repellat, enim quibusdam!
+            </p>
         </section>
     )
 }

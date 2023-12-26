@@ -1,27 +1,35 @@
 // const { useState, useEffect } = React
 // const { useSelector, useDispatch } = ReactRedux
 
+import { utilService } from '../services/util.service.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { ToyFilter } from '../cmps/ToyFilter.jsx'
 import { ToyList } from '../cmps/ToyList.jsx'
 import { toyService } from '../services/toy.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
-import { loadToys, removeToyOptimistic, saveToy, setFilterBy } from '../store/actions/toy.actions.js'
+import {
+    loadToys,
+    removeToyOptimistic,
+    saveToy,
+    setFilterBy,
+} from '../store/actions/toy.actions.js'
 import { ADD_TOY_TO_CART } from '../store/reducers/toy.reducer.js'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 export function ToyIndex() {
     const dispatch = useDispatch()
-    const toys = useSelector(storeState => storeState.toyModule.toys)
-    const cart = useSelector(storeState => storeState.toyModule.shoppingCart)
-    const isLoading = useSelector(storeState => storeState.toyModule.isLoading)
-    const filterBy = useSelector(storeState => storeState.toyModule.filterBy)
+    const toys = useSelector((storeState) => storeState.toyModule.toys)
+    const cart = useSelector((storeState) => storeState.toyModule.shoppingCart)
+    const isLoading = useSelector(
+        (storeState) => storeState.toyModule.isLoading
+    )
+    const filterBy = useSelector((storeState) => storeState.toyModule.filterBy)
+    const debounceOnSetFilter = useRef(utilService.debounce(onSetFilter, 500))
 
     useEffect(() => {
-        loadToys()
-            .catch(() => {
-                showErrorMsg('Cannot show toys')
-            })
+        loadToys().catch(() => {
+            showErrorMsg('Cannot show toys')
+        })
     }, [filterBy])
 
     function onRemoveToy(toyId) {
@@ -29,7 +37,7 @@ export function ToyIndex() {
             .then(() => {
                 showSuccessMsg('Toy removed')
             })
-            .catch(err => {
+            .catch((err) => {
                 console.log('Cannot remove toy', err)
                 showErrorMsg('Cannot remove toy')
             })
@@ -40,10 +48,10 @@ export function ToyIndex() {
         saveToy(toyToSave)
             .then((savedToy) => {
                 console.log('savedToy:', savedToy)
-                showSuccessMsg(`Toy added (vendor: ${savedToy.vendor})`)
+                showSuccessMsg(`Toy added (Name: ${savedToy.name})`)
                 // dispatch({ type: ADD_TOY, toy: savedToy })
             })
-            .catch(err => {
+            .catch((err) => {
                 console.log('Cannot add toy', err)
                 showErrorMsg('Cannot add toy')
             })
@@ -59,7 +67,7 @@ export function ToyIndex() {
                 showSuccessMsg(`Toy updated to price: $${savedToy.price}`)
             })
 
-            .catch(err => {
+            .catch((err) => {
                 console.log('Cannot update toy', err)
                 showErrorMsg('Cannot update toy')
             })
@@ -73,31 +81,33 @@ export function ToyIndex() {
 
     function addToCart(toy) {
         console.log('toy:', toy)
-        console.log(`Adding ${toy.vendor} to Cart`)
+        console.log(`Adding ${toy.name} to Cart`)
         dispatch({ type: ADD_TOY_TO_CART, toy })
         showSuccessMsg('Added to Cart')
     }
-
 
     return (
         <div>
             <h3>Toys App</h3>
             <main>
-                <button onClick={onAddToy}>Add Toy ⛐</button>
-                <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-                {!isLoading && <ToyList
-                    toys={toys}
-                    onEditToy={onEditToy}
-                    onRemoveToy={onRemoveToy}
-                    addToCart={addToCart}
-                    txt={'999'}
-                    nums={[1, 2, 3]}
-                />}
+                <button onClick={onAddToy}>Add Toy 🧸</button>
+                <ToyFilter
+                    filterBy={filterBy}
+                    onSetFilter={debounceOnSetFilter}
+                />
+                {!isLoading && (
+                    <ToyList
+                        toys={toys}
+                        onEditToy={onEditToy}
+                        onRemoveToy={onRemoveToy}
+                        addToCart={addToCart}
+                        txt={'999'}
+                        nums={[1, 2, 3]}
+                    />
+                )}
                 {isLoading && <div>Loading...</div>}
                 <hr />
-                <pre>{JSON.stringify(cart, null, 2)}</pre>
             </main>
         </div>
     )
-
 }
