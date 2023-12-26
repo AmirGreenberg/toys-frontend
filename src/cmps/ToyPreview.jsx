@@ -1,13 +1,45 @@
 import { Link } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
-// const { Link } = ReactRouterDOM
 export function ToyPreview({ toy, onRemoveToy, onEditToy, addToCart }) {
+    const pexelsApiKey =
+        'HplrBxATX1ZEUL2Di1m07ViAZLaGUTGfFwx3W14BYTmxApATW7x8Og4O'
+    const [imageUrl, setImageUrl] = useState(null)
+
+    const query = encodeURIComponent(toy.name)
+    const pexelsUrl = `https://api.pexels.com/v1/search?query=${query}&per_page=1`
+
+    const fetchImage = async () => {
+        try {
+            const response = await fetch(pexelsUrl, {
+                headers: {
+                    Authorization: pexelsApiKey,
+                },
+            })
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch image from Pexels')
+            }
+
+            const data = await response.json()
+            const newImageUrl =
+                data.photos.length > 0 ? data.photos[0].src.medium : null
+            setImageUrl(newImageUrl)
+        } catch (error) {
+            console.error('Error fetching image:', error)
+        }
+    }
+
+    useEffect(() => {
+        fetchImage()
+    }, [toy.name])
+
     return (
         <li className="toy-preview" key={toy._id}>
             <Link to={`/toy/${toy._id}`}>
                 {toy.name && <h4>{toy.name}</h4>}
-                <h1>🧸</h1>
+                {imageUrl && <img src={imageUrl} alt={toy.name} />}
             </Link>
             {toy.price && (
                 <p>

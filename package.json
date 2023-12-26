@@ -10,15 +10,23 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@emotion/react": "^11.11.3",
+        "@emotion/styled": "^11.11.0",
+        "@mui/icons-material": "^5.14.9",
+        "@mui/material": "^5.15.2",
         "axios": "^1.6.2",
+        "formik": "^2.4.5",
         "fs": "^0.0.1-security",
+        "google-map-react": "^2.2.1",
         "prop-types": "^15.8.1",
         "react": "^18.2.0",
+        "react-chartjs-2": "^5.2.0",
         "react-dom": "^18.2.0",
         "react-redux": "^9.0.4",
         "react-router-dom": "^6.21.1",
         "redux": "^5.0.1",
-        "slick-react-multiselect-dropdown": "^1.0.0"
+        "slick-react-multiselect-dropdown": "^1.0.0",
+        "yup": "^1.2.0"
     },
     "devDependencies": {
         "@types/react": "^18.2.43",

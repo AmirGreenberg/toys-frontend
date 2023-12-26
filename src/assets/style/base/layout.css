@@ -1,23 +1,20 @@
 .main-layout {
-  margin: 0 auto;
-  padding-left: 1.6rem;
-  padding-right: 1.6rem;
-
+    margin: 0 auto;
+    padding-left: 2rem; /* Increased left padding for better spacing */
+    padding-right: 2rem; /* Increased right padding for better spacing */
 }
 
-
-
 .container {
-  max-width: 800px;
-  padding: 1em;
-  margin: auto;
+    max-width: 1000px; /* Increased max-width for better responsiveness */
+    padding: 2em; /* Increased padding for better spacing */
+    margin: auto;
 }
 
 footer {
-  background-color: var(--clr1);
-  color: var(--clr1bg);
-  padding: 1em;
-  text-align: center;
+    background-color: var(
+        --clr2bg
+    ); /* Changed background color for better contrast */
+    color: var(--clr1); /* Text color for better contrast */
+    padding: 1.5em; /* Increased padding for better spacing */
+    text-align: center;
 }
-
-

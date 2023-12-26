@@ -1,19 +1,20 @@
 #root {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 3rem; /* Increased padding for better spacing */
     text-align: center;
 }
 
 .logo {
-    height: 6em;
+    height: 8em; /* Increased logo height for better visibility */
     padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+    will-change: transform, filter; /* Include transform for animation */
+    transition: filter 300ms, transform 300ms; /* Added transform transition */
 }
 
 .logo:hover {
     filter: drop-shadow(0 0 2em #646cffaa);
+    transform: scale(1.1); /* Slightly scale up on hover */
 }
 
 .logo.react:hover {
@@ -38,8 +39,10 @@
 
 .toyd {
     padding: 2em;
+    border-radius: 10px; /* Rounded corners for the container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 .read-the-docs {
-    color: #888;
+    color: #555; /* Darker gray for better contrast */
 }
