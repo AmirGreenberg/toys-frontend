@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
+import logoPng from '../assets/img/logo.png'
 
 import { UserMsg } from './UserMsg.jsx'
 import { LoginSignup } from './LoginSignup.jsx'
@@ -18,11 +19,14 @@ export function AppHeader() {
 
     // TODO: move to storeState
     // const [user, setUser] = useState(userService.getLoggedinUser())
-    const user = useSelector(storeState => storeState.userModule.loggedinUser)
-    const isCartShown = useSelector(storeState => storeState.toyModule.isCartShown)
+    const user = useSelector((storeState) => storeState.userModule.loggedinUser)
+    const isCartShown = useSelector(
+        (storeState) => storeState.toyModule.isCartShown
+    )
 
     function onLogout() {
-        userService.logout()
+        userService
+            .logout()
             .then(() => {
                 // DONE: use dispatch
                 onSetUser(null)
@@ -45,26 +49,40 @@ export function AppHeader() {
     }
 
     return (
-        <header className="app-header full main-layout">
-            <section className="header-container">
-                <h1>Mister Toy By Amir Greenberg</h1>
-                <nav className="app-nav">
-                    <NavLink to="/" >Home</NavLink>
-                    <NavLink to="/about" >About</NavLink>
-                    <NavLink to="/toy" >Toys</NavLink>
-                    <a onClick={onToggleCart} href="#">🛒 Cart</a>
-                </nav>
-            </section>
-            {user ? (
-                < section >
-                    <span to={`/user/${user._id}`}>Hello {user.fullname} <span>${user.score.toLocaleString()}</span></span>
-                    <button onClick={onLogout}>Logout</button>
-                </ section >
-            ) : (
-                <section>
-                    <LoginSignup onSetUser={onSetUser} />
-                </section>
-            )}
+        <header className="main-header full justify-between flex">
+            <div className="flex">
+                <div className="main-header-logo">
+                    <img src={logoPng} />
+                </div>
+                <div>
+                    {user ? (
+                        <section>
+                            <span to={`/user/${user._id}`}>
+                                Hello {user.fullname}{' '}
+                                <span>${user.score.toLocaleString()}</span>
+                            </span>
+                            <button onClick={onLogout}>Logout</button>
+                        </section>
+                    ) : (
+                        <section>
+                            <LoginSignup onSetUser={onSetUser} />
+                        </section>
+                    )}
+                </div>
+            </div>
+            <nav className="main-header-nav flex">
+                <ul className="main-nav clean-list flex">
+                    <li className="btn">
+                        <NavLink to="/">Home</NavLink>
+                    </li>
+                    <li className="btn">
+                        <NavLink to="/toy">Store</NavLink>
+                    </li>
+                    <li className="btn">
+                        <NavLink to="/about">About</NavLink>
+                    </li>
+                </ul>
+            </nav>
             <UserMsg />
         </header>
     )

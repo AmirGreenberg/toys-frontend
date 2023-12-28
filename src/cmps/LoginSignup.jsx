@@ -7,7 +7,6 @@ import { LoginForm } from './LoginForm.jsx'
 // const { useState } = React
 
 export function LoginSignup({ onSetUser }) {
-
     const [isSignup, setIsSignUp] = useState(false)
 
     function onLogin(credentials) {
@@ -17,31 +16,33 @@ export function LoginSignup({ onSetUser }) {
     function _login(credentials) {
         login(credentials)
             .then(onSetUser)
-            .then(() => { showSuccessMsg('Logged in successfully') })
-            .catch((err) => { showErrorMsg('Oops try again') })
+            .then(() => {
+                showSuccessMsg('Logged in successfully')
+            })
+            .catch((err) => {
+                showErrorMsg('Oops try again')
+            })
     }
 
     function _signup(credentials) {
         signup(credentials)
             .then(onSetUser)
-            .then(() => { showSuccessMsg('Signed in successfully') })
-            .catch((err) => { showErrorMsg('Oops try again') })
+            .then(() => {
+                showSuccessMsg('Signed in successfully')
+            })
+            .catch((err) => {
+                showErrorMsg('Oops try again')
+            })
     }
 
     return (
-        <div className="login-page">
+        <div className="main-header-nav">
             <LoginForm
+                className="main-nav clean-list flex"
                 onLogin={onLogin}
                 isSignup={isSignup}
+                setIsSignUp={setIsSignUp}
             />
-            <div className="btns">
-                <a href="#" onClick={() => setIsSignUp(!isSignup)}>
-                    {isSignup ?
-                        'Already a member? Login' :
-                        'New user? Signup here'
-                    }
-                </a >
-            </div>
-        </div >
+        </div>
     )
 }

@@ -26,79 +26,96 @@ export function ToyFilter({ filterBy, onSetFilter }) {
     }
 
     return (
-        <section className="toy-filter full main-layout">
-            <h2>Toys Filter</h2>
-            <form>
-                <label htmlFor="name">Name:</label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="By name"
-                    value={filterByToEdit.name}
-                    onChange={handleChange}
-                />
-
-                <label htmlFor="price">Max price:</label>
-                <input
-                    type="number"
-                    id="price"
-                    name="price"
-                    placeholder="By max price"
-                    value={filterByToEdit.price || ''}
-                    onChange={handleChange}
-                />
-                <fieldset htmlFor="inStock">
-                    <legend>Inventory</legend>
+        <section className="toy-list">
+            <form className="grid gaf-column ">
+                <fieldset>
+                    <legend>Name</legend>
                     <div>
+                        <label htmlFor="name"></label>
                         <input
-                            type="radio"
-                            id="all"
-                            name="inStock"
-                            value=""
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Filter by name"
+                            value={filterByToEdit.name}
                             onChange={handleChange}
                         />
-                        <label htmlFor="inStock">All</label>
-                    </div>
-                    <div>
-                        <input
-                            type="radio"
-                            id="inStock"
-                            name="inStock"
-                            value={true}
-                            onChange={handleChange}
-                        />
-                        <label htmlFor="inStock">In stock</label>
-                    </div>
-                    <div>
-                        <input
-                            type="radio"
-                            id="outOfStock"
-                            name="inStock"
-                            value={false}
-                            onChange={handleChange}
-                        />
-                        <label htmlFor="inStock">Out of stock</label>
                     </div>
                 </fieldset>
-                <label className="filter-label">
-                    <span className="filter-label">Filter By</span>
-                    <select
-                        onChange={handleChange}
-                        name="labels"
-                        multiple
-                        value={filterByToEdit.labels || []}
-                    >
-                        <option value=""> All </option>
-                        <>
-                            {toyLabel.map((label) => (
-                                <option key={label} value={label}>
-                                    {label}
-                                </option>
-                            ))}
-                        </>
-                    </select>
-                </label>
+
+                <fieldset>
+                    <legend>Max Price</legend>
+                    <div>
+                        <label htmlFor="price"></label>
+                        <input
+                            type="number"
+                            id="price"
+                            name="price"
+                            placeholder="Filter by max price"
+                            value={filterByToEdit.price || ''}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </fieldset>
+                <div className="margin-10">
+                    <fieldset htmlFor="inStock">
+                        <legend>Inventory</legend>
+                        <div>
+                            <div className="">
+                                <input
+                                    type="radio"
+                                    id="all"
+                                    name="inStock"
+                                    value=""
+                                    onChange={handleChange}
+                                />
+                                <label htmlFor="inStock">All</label>
+                            </div>
+                            <div className="">
+                                <input
+                                    type="radio"
+                                    id="inStock"
+                                    name="inStock"
+                                    value={true}
+                                    onChange={handleChange}
+                                />
+                                <label htmlFor="inStock">In stock</label>
+                            </div>
+                            <div className="">
+                                <input
+                                    type="radio"
+                                    id="outOfStock"
+                                    name="inStock"
+                                    value={false}
+                                    onChange={handleChange}
+                                />
+                                <label htmlFor="inStock">Out of stock</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div>
+                    <label className="filter-label flex">
+                        <fieldset>
+                            <legend>Filter By</legend>
+                            <select
+                                onChange={handleChange}
+                                name="labels"
+                                multiple
+                                value={filterByToEdit.labels || []}
+                            >
+                                <option value=""> All </option>
+                                <>
+                                    {toyLabel.map((label) => (
+                                        <option key={label} value={label}>
+                                            {label}
+                                        </option>
+                                    ))}
+                                </>
+                            </select>
+                        </fieldset>
+                    </label>
+                </div>
             </form>
         </section>
     )

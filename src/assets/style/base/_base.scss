@@ -1,0 +1,142 @@
+::selection {
+    color: $clr1;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: Bahnschrift, sans-serif;
+    color: $clr0;
+    line-height: 1.8;
+    line-height: lh(26px);
+
+    @media (max-width: 1300px) {
+        font-size: 13px;
+    }
+}
+
+body {
+    margin: 0;
+    background-color: $clr2;
+
+    @include for-normal-layout {
+        &.sidebar-open {
+            overflow: hidden;
+        }
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 500;
+    margin: 0 0 1rem;
+    line-height: lh(40px, 29px);
+}
+
+h1 {
+    font-size: rem(60px);
+}
+
+h2 {
+    font-size: em(16px);
+    // color: $clr1;
+    text-transform: uppercase;
+    @include type(boldCondensed);
+}
+
+h3 {
+    font-size: em(29px);
+}
+
+img {
+    width: 100%;
+}
+
+p {
+    margin: 0 0 1em;
+    max-width: 60ch;
+    @include type(light);
+    .main-text & {
+        grid-column: 3 / 6;
+        font-size: rem(22px);
+        line-height: 1.384615;
+        padding-inline-start: rem(30px);
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            max-height: 42px;
+            background-color: $clr2;
+
+            @include for-wide-layout {
+                width: 10px;
+            }
+        }
+
+        @include for-wide-layout {
+            grid-column: 3 / 5;
+            font-size: rem(26px);
+        }
+    }
+}
+
+.btn {
+    @include btn;
+
+    &-dark {
+        @include btn($type: dark);
+    }
+
+    &-light {
+        @include btn($type: light);
+    }
+}
+
+// links
+a {
+    color: $clr0;
+
+    &.active {
+        color: $clr1;
+    }
+}
+
+mark {
+    color: $clr0;
+    background-color: transparent;
+}
+
+.wow {
+    // height: 50vh;
+    object-fit: cover;
+}
+
+body {
+    background: linear-gradient(-45deg, #e7e4e3, #faefaf, #f4f6f7, #eeec71);
+    background-size: 500% 500%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}

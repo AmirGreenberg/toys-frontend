@@ -1,0 +1,5 @@
+input:focus {
+    background-color: $clr4;
+    outline: none; /* Removed default focus outline */
+    transition: background-color 0.3s ease-in-out;
+}

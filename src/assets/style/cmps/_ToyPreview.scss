@@ -1,0 +1,17 @@
+.toy-preview {
+    text-align: center;
+    padding: 0.3em;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    border: 1px solid $clr4;
+
+    h4 {
+        text-transform: capitalize;
+        color: black;
+    }
+
+    img {
+        max-width: 100px;
+    }
+}

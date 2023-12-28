@@ -15,6 +15,8 @@ import {
     setFilterBy,
 } from '../store/actions/toy.actions.js'
 import { ADD_TOY_TO_CART } from '../store/reducers/toy.reducer.js'
+import wow from '../assets/img/wow.jpg'
+import wowsmall from '../assets/img/wowsmall.jpg'
 
 export function ToyIndex() {
     const toys = useSelector((storeState) => storeState.toyModule.toys)
@@ -93,27 +95,23 @@ export function ToyIndex() {
 
     return (
         <div>
-            <h3>Toys App</h3>
-            <main>
-                <button onClick={onAddToy}>Add Toy 🧸</button>
-                <ToyFilter
-                    filterBy={filterBy}
-                    onSetFilter={debounceOnSetFilter}
+            <a className="btn sort-list" onClick={onAddToy}>
+                Add New Toy 🧸
+            </a>
+            <ToyFilter filterBy={filterBy} onSetFilter={debounceOnSetFilter} />
+            <ToySort sort={sort} onSetSort={onSetSort} />
+            {!isLoading && (
+                <ToyList
+                    toys={toys}
+                    onEditToy={onEditToy}
+                    onRemoveToy={onRemoveToy}
+                    addToCart={addToCart}
+                    txt={'999'}
+                    nums={[1, 2, 3]}
                 />
-                <ToySort sort={sort} onSetSort={onSetSort} />
-                {!isLoading && (
-                    <ToyList
-                        toys={toys}
-                        onEditToy={onEditToy}
-                        onRemoveToy={onRemoveToy}
-                        addToCart={addToCart}
-                        txt={'999'}
-                        nums={[1, 2, 3]}
-                    />
-                )}
-                {isLoading && <div>Loading...</div>}
-                <hr />
-            </main>
+            )}
+            {isLoading && <div>Loading...</div>}
+            <hr />
         </div>
     )
 }

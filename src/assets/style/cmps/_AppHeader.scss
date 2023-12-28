@@ -1,0 +1,41 @@
+header.main-header {
+    display: flex;
+    padding-inline: 20px;
+    padding-block-start: 20px;
+
+    // min-height: 100vh;
+    ul .btns {
+        align-items: start;
+    }
+
+    .main-header-logo {
+        width: 100%;
+        // background-color: #2b2929;
+        object-fit: cover;
+        width: 4rem;
+    }
+
+    .main-header-nav {
+        align-items: start;
+        .main-nav {
+            a {
+                @include btn($type: light, $padding: em(30px) em(30px));
+                display: block;
+                width: fit-content;
+                &.active {
+                    background-color: $clr4;
+                    color: $clr2;
+                }
+            }
+        }
+        .main-header-search {
+            svg {
+                width: 20px;
+            }
+        }
+    }
+
+    svg {
+        width: 6px;
+    }
+}

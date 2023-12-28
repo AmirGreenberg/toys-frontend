@@ -1,0 +1,27 @@
+.toy-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    li {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        background-color: var(--clr1bg);
+        margin: 0.5em;
+    }
+}
+
+.sort-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid $clr4;
+    border-radius: 10px;
+    font-size: larger;
+}

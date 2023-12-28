@@ -1,6 +1,5 @@
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import './assets/style/main.css'
 // const Router = ReactRouterDOM.BrowserRouter
 // const { Route, Routes } = ReactRouterDOM
 // const { Provider } = ReactRedux
@@ -19,23 +18,15 @@ export function App() {
     return (
         <Provider store={store}>
             <Router>
-                <section className="main-layout app">
+                <section className="main-layout">
                     <AppHeader />
-                    <main>
-                        <Routes>
-                            <Route element={<HomePage />} path="/" />
-                            <Route element={<AboutUs />} path="/about" />
-                            <Route
-                                element={<ToyDetails />}
-                                path="/toy/:toyId"
-                            />
-                            <Route element={<ToyIndex />} path="/toy" />
-                            <Route
-                                element={<ToyEdit />}
-                                path="/toy/edit/:toyId?"
-                            />
-                        </Routes>
-                    </main>
+                    <Routes>
+                        <Route element={<HomePage />} path="/" />
+                        <Route element={<AboutUs />} path="/about" />
+                        <Route element={<ToyDetails />} path="/toy/:toyId" />
+                        <Route element={<ToyIndex />} path="/toy" />
+                        <Route element={<ToyEdit />} path="/toy/edit/:toyId?" />
+                    </Routes>
                     <AppFooter />
                 </section>
             </Router>
