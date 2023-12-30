@@ -24,16 +24,13 @@ export function AppHeader() {
         (storeState) => storeState.toyModule.isCartShown
     )
 
-    function onLogout() {
-        userService
-            .logout()
-            .then(() => {
-                // DONE: use dispatch
-                onSetUser(null)
-            })
-            .catch((err) => {
-                showErrorMsg('OOPs try again')
-            })
+    async function onLogout() {
+        try {
+            await userService.logout()
+            onSetUser(null)
+        } catch (err) {
+            showErrorMsg('OOPs try again')
+        }
     }
 
     function onSetUser(user) {

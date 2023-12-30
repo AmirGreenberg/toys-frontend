@@ -15,18 +15,15 @@ export function ToyDetails(addToCart) {
         loadToy()
     }, [toyId])
 
-    function loadToy() {
-        toyService
-            .getById(toyId)
-            .then((toy) => {
-                return setToy(toy)
-            })
-
-            .catch((err) => {
-                console.log('Had issues in toy details', err)
-                showErrorMsg('Cannot load toy')
-                navigate('/toy')
-            })
+    async function loadToy() {
+        try {
+            const toy = await toyService.getById(toyId)
+            setToy(toy)
+        } catch (err) {
+            console.log('Had issues in toy details', err)
+            showErrorMsg('Cannot load toy')
+            navigate('/toy')
+        }
     }
 
     if (!toy) return <div>Loading...</div>

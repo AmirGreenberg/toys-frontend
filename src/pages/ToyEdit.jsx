@@ -13,10 +13,18 @@ export function ToyEdit() {
 
     useEffect(() => {
         if (!toyId) return
-        toyService.getById(toyId).then((toy) => {
-            setToyToEdit(toy)
-        })
-    }, [])
+
+        const fetchToy = async () => {
+            try {
+                const toy = await toyService.getById(toyId)
+                setToyToEdit(toy)
+            } catch (err) {
+                console.error('Error fetching toy details:', err)
+            }
+        }
+
+        fetchToy()
+    }, [toyId])
 
     function handleChange(ev) {
         const field = ev.target.name
@@ -30,7 +38,7 @@ export function ToyEdit() {
         setToyToEdit((prevToy) => ({ ...prevToy, [field]: value }))
     }
 
-    function onSave(ev) {
+    async function onSave(ev) {
         ev.preventDefault()
 
         const newToy = {
@@ -38,15 +46,13 @@ export function ToyEdit() {
             inStock: toyToEdit.inStock === 'true' ? true : false,
         }
 
-        console.log('🚀  newToy:', newToy)
-        saveToy(newToy)
-            .then(() => {
-                showSuccessMsg('Toy saved successfully')
-                navigate('/toy')
-            })
-            .catch((err) => {
-                showErrorMsg('Can not save toy, please try again')
-            })
+        try {
+            await saveToy(newToy)
+            showSuccessMsg('Toy saved successfully')
+            navigate('/toy')
+        } catch (err) {
+            showErrorMsg('Can not save toy, please try again')
+        }
     }
 
     function getYesNo() {

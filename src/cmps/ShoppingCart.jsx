@@ -29,13 +29,16 @@ export function ShoppingCart({ isCartShown }) {
         return shoppingCart.reduce((acc, toy) => acc + toy.price, 0)
     }
 
-    function onCheckout() {
-        const amount = getCartTotal()
-        userService.updateScore(-amount).then((score) => {
+    async function onCheckout() {
+        try {
+            const amount = getCartTotal()
+            const score = await userService.updateScore(-amount)
             dispatch({ type: SET_USER_SCORE, score })
             dispatch({ type: CLEAR_CART })
             showSuccessMsg(`Charged you: $ ${amount.toLocaleString()}`)
-        })
+        } catch (err) {
+            console.error('Checkout error:', err)
+        }
     }
 
     if (!isCartShown) return <span></span>

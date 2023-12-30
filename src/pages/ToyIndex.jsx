@@ -35,45 +35,39 @@ export function ToyIndex() {
         })
     }, [filterBy, sort])
 
-    function onRemoveToy(toyId) {
-        removeToyOptimistic(toyId)
-            .then(() => {
-                showSuccessMsg('Toy removed')
-            })
-            .catch((err) => {
-                console.log('Cannot remove toy', err)
-                showErrorMsg('Cannot remove toy')
-            })
+    async function onRemoveToy(toyId) {
+        try {
+            await removeToyOptimistic(toyId)
+            showSuccessMsg('Toy removed')
+        } catch (err) {
+            console.log('Cannot remove toy', err)
+            showErrorMsg('Cannot remove toy')
+        }
     }
 
-    function onAddToy() {
-        const toyToSave = toyService.getEmptyToy()
-        saveToy(toyToSave)
-            .then((savedToy) => {
-                console.log('savedToy:', savedToy)
-                showSuccessMsg(`Toy added (Name: ${savedToy.name})`)
-                // dispatch({ type: ADD_TOY, toy: savedToy })
-            })
-            .catch((err) => {
-                console.log('Cannot add toy', err)
-                showErrorMsg('Cannot add toy')
-            })
+    async function onAddToy() {
+        try {
+            const toyToSave = toyService.getEmptyToy()
+            const savedToy = await saveToy(toyToSave)
+            console.log('savedToy:', savedToy)
+            showSuccessMsg(`Toy added (Name: ${savedToy.name})`)
+        } catch (err) {
+            console.log('Cannot add toy', err)
+            showErrorMsg('Cannot add toy')
+        }
     }
 
-    function onEditToy(toy) {
+    async function onEditToy(toy) {
         const price = +prompt('New price?')
         const toyToSave = { ...toy, price }
 
-        saveToy(toyToSave)
-            .then((savedToy) => {
-                // dispatch({ type: UPDATE_TOY, toy: savedToy })
-                showSuccessMsg(`Toy updated to price: $${savedToy.price}`)
-            })
-
-            .catch((err) => {
-                console.log('Cannot update toy', err)
-                showErrorMsg('Cannot update toy')
-            })
+        try {
+            const savedToy = await saveToy(toyToSave)
+            showSuccessMsg(`Toy updated to price: $${savedToy.price}`)
+        } catch (err) {
+            console.log('Cannot update toy', err)
+            showErrorMsg('Cannot update toy')
+        }
     }
 
     function onSetFilter(filterBy) {
