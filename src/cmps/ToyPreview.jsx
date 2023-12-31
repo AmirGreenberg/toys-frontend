@@ -29,7 +29,9 @@ export function ToyPreview({ toy, onRemoveToy, onEditToy, addToCart }) {
             )}
             <p>
                 Inventory:{' '}
-                <span>{toy.inStock ? 'In stock' : 'Out of stock'}</span>
+                <span>
+                    {toy.inStock === true ? 'In stock' : 'Out of stock'}
+                </span>
             </p>
             <div className="flex">
                 <a

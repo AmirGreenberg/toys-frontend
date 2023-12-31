@@ -76,7 +76,7 @@ export function ToyFilter({ filterBy, onSetFilter }) {
                                     type="radio"
                                     id="inStock"
                                     name="inStock"
-                                    value={true}
+                                    value={'true'}
                                     onChange={handleChange}
                                 />
                                 <label htmlFor="inStock">In stock</label>
@@ -86,7 +86,7 @@ export function ToyFilter({ filterBy, onSetFilter }) {
                                     type="radio"
                                     id="outOfStock"
                                     name="inStock"
-                                    value={false}
+                                    value={'false'}
                                     onChange={handleChange}
                                 />
                                 <label htmlFor="inStock">Out of stock</label>
