@@ -192,7 +192,11 @@ export function ToyDetails() {
                 {new Date(toy.createdAt).toString().substring(0, 25)}
             </h5>
             <h5 className="toy-labels">Labels: {toy.labels.join(',')}</h5>
-            <h1 className="toy-emoji">{toy.icon}</h1>
+            <img
+                src={toy.imgUrl}
+                alt=""
+                style={{ maxWidth: '300px', height: 'auto' }}
+            />
             <h5 className="toy-description-heading">Description</h5>
             <p className="toy-description">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi

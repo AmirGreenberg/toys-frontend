@@ -7,7 +7,7 @@ export function ToyPreview({ toy, onRemoveToy, onEditToy, addToCart }) {
         <li className="toy-preview" key={toy._id}>
             <Link to={`/toy/${toy._id}`}>
                 {toy.name && <h4>{toy.name}</h4>}
-                <img src={`https://robohash.org/${toy.name}?set=set2`} alt="" />
+                <img src={`${toy.imgUrl}`} alt="" />
             </Link>
             {toy.price && (
                 <p>
