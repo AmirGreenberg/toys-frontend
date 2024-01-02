@@ -13,6 +13,8 @@ import { ToyIndex } from './pages/ToyIndex.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
 import { store } from './store/store'
 import { ToyDetails } from './pages/ToyDetails.jsx'
+import { ReviewExplore } from './pages/ReviewExplore.jsx'
+import { UserDetails } from './pages/UserDetails.jsx'
 
 export function App() {
     return (
@@ -25,6 +27,8 @@ export function App() {
                         <Route element={<AboutUs />} path="/about" />
                         <Route element={<ToyDetails />} path="/toy/:toyId" />
                         <Route element={<ToyIndex />} path="/toy" />
+                        <Route element={<ReviewExplore />} path="/review" />
+                        <Route element={<UserDetails />} path="/user" />
                         <Route element={<ToyEdit />} path="/toy/edit/:toyId?" />
                     </Routes>
                     <AppFooter />

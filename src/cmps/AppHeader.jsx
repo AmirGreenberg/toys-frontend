@@ -78,6 +78,9 @@ export function AppHeader() {
                     <li className="btn">
                         <NavLink to="/about">About</NavLink>
                     </li>
+                    <li className="btn">
+                        <NavLink to="/review">Reviews</NavLink>
+                    </li>
                 </ul>
             </nav>
             <UserMsg />

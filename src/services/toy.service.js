@@ -16,6 +16,7 @@ const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdo
 //XXX 
 const BASE_URL = 'toy/'
 
+
 export const toyService = {
     query,
     getById,
@@ -24,14 +25,39 @@ export const toyService = {
     getEmptyToy,
     getDefaultFilter,
     getDefaultSort,
-    getLabels
+    getLabels,
+    getDataValues,
+    addMsg,
+    removeMsg
 }
+
+function getDataValues(labels) {
+    var newData = []
+    for (var i = 0; i < Object.keys(labels).length; i++) {
+        newData.push(Object.values(labels)[i])
+    }
+    return newData
+}
+
+async function addMsg(toyId, txt) {
+    // console.log('toyId',toyId , txt)
+    const savedMsg = await httpService.post(`toy/${toyId}/msg`, { txt })
+    return savedMsg
+}
+
+async function removeMsg(toyId, msgId) {
+    const removedId = await httpService.delete(`toy/${toyId}/msg/${msgId}`)
+    return removedId
+}
+
 
 function getLabels() {
     return [...labels]
 }
 
 function query(filterBy = {}, sort) {
+    console.log("🚀  sort:", sort)
+    console.log("🚀  filterBy:", filterBy)
     //XXX 
     return httpService.get(BASE_URL, { params: { filterBy, sort } })
 

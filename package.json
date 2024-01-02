@@ -27,7 +27,15 @@
         "react-router-dom": "^6.21.1",
         "redux": "^5.0.1",
         "slick-react-multiselect-dropdown": "^1.0.0",
-        "yup": "^1.2.0"
+        "yup": "^1.2.0",
+        "chart.js": "^4.4.0",
+        "i18next": "^23.5.1",
+        "i18next-browser-languagedetector": "^7.1.0",
+        "i18next-http-backend": "^2.2.2",
+        "lodash": "^4.17.21",
+        "react-i18next": "^13.2.2",
+        "react-paginate": "^8.2.0",
+        "sass": "^1.68.0"
     },
     "devDependencies": {
         "@types/react": "^18.2.43",

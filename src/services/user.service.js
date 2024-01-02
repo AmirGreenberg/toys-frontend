@@ -13,7 +13,16 @@ export const userService = {
     getById,
     getLoggedinUser,
     updateScore,
-    getEmptyCredentials
+    getEmptyCredentials,
+    getUsers,
+}
+
+
+function getUsers() {
+    // return storageService.query('user')
+    console.log('check get users fron')
+    return httpService.get(`user`)
+
 }
 
 function getById(userId) {
