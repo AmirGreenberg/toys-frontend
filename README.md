@@ -1,8 +1,8 @@
-<h1 align="center">🧸 MisterToy Backend 🧸</h1>
-<h2 align="center">A Powerful Backend for a Toy Store Application</h2>
+<h1 align="center">🧸 MisterToy Frontend 🧸</h1>
+<h2 align="center">A Powerful Frontend for a Toy Store Application</h2>
 <h3>📝 Introduction</h3>
 <p>
-Welcome to <strong>mistertoy</strong>, a powerful backend for a basic toy store. This backend is designed with a focus on robust functionality, including authentication, RESTful API structure, route splitting, and much more. Built using React, Node.js, MongoDB, and Sass, it serves as a solid foundation for the toy store application.
+Welcome to <strong>mistertoy</strong>, a powerful frontend for a basic toy store. This frontend is designed with a focus on robust functionality, including authentication, RESTful API structure, route splitting, and much more. Built using React, Node.js, MongoDB, and Sass, it serves as a solid foundation for the toy store application.
 </p>
 <h3>🚀 Features</h3>
 <ul>
@@ -21,9 +21,9 @@ Welcome to <strong>mistertoy</strong>, a powerful backend for a basic toy store.
 <h3>🚀 Getting Started</h3>
 <ol>
   <li>Clone the repository:</li>
-  <pre><code>git clone https://github.com/MorMarzan/mistertoy-backend.git</code></pre>
+  <pre><code>git clone https://github.com/MorMarzan/mistertoy-frontend.git</code></pre>
   <li>Navigate to the project directory:</li>
-  <pre><code>cd mistertoy-backend</code></pre>
+  <pre><code>cd mistertoy-frontend</code></pre>
   <li>Install the required dependencies:</li>
   <pre><code>npm install</code></pre>
   <li>To start the server, run:</li>
